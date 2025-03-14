@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Al Image Classification Hugging Face và Flask </title>
+    </head>
+    <body>
+        <h1>Upload Image for Classification</h1>
+        <form action="/classify" method="post" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <button type="submit">Upload</button>
+        </form>
+        
+        {% if image_url %}
+            <h2>Uploaded Image</h2>
+            <img src="{{ image_url }}" alt="Uploaded Image" style="max-width: 500px">
+        {% endif %}
+        
+        {% if prediction %}
+            <h2>Prediction:</h2>
+            <p>{{ prediction }}</p>
+        {% endif %}
+        
+    </body>
+</html>
