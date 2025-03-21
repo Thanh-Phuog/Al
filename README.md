@@ -3,7 +3,7 @@
 Đây là bài nộp cuối cùng của dự án AI sử dụng **Tersolow** và **Hugging Face**.
 
 ## 🏷 Nhánh trong repo
-- **`master`**: Chứa bài lab và hướng dẫn thực hành  
+- **`master`**: Chứa các bài lab  
 - **`final`**: Bài nộp cuối cùng đã hoàn thiện  
 
 ---
