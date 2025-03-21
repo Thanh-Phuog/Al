@@ -4,7 +4,7 @@
 
 ## 🏷 Nhánh trong repo
 - **`master`**: Chứa các bài lab  
-- **`final`**: Bài nộp cuối cùng đã hoàn thiện  
+- **`final`**: Bài kết thúc môn  
 
 ---
 
