@@ -12,7 +12,7 @@
 
 ### 1️⃣ Clone repository
 ```bash
-git clone [https://github.com/user/repo.git](https://github.com/Thanh-Phuog/Al)
+git clone https://github.com/Thanh-Phuog/Al
 cd Al
 ```
 
