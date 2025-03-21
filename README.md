@@ -12,8 +12,8 @@
 
 ### 1️⃣ Clone repository
 ```bash
-git clone https://github.com/user/repo.git
-cd repo
+git clone [https://github.com/user/repo.git](https://github.com/Thanh-Phuog/Al)
+cd Al
 ```
 
 ### 2️⃣ Cài đặt thư viện cần thiết
