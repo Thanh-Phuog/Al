@@ -8,6 +8,15 @@
 
 ---
 
+ Triển khai toàn bộ ứng dụng trên cloud :  
+ Render:
+🔗 **[https://final-project-p5hz.onrender.com/](https://final-project-p5hz.onrender.com/)** 🚀  
+
+ Railway:
+🔗 **[https://al-production-3ae5.up.railway.app/](https://al-production-3ae5.up.railway.app/)** 🚀  
+
+---
+
 ## 🛠 Cài đặt môi trường
 
 ### 1️⃣ Clone repository
