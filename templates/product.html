@@ -14,8 +14,12 @@
     </style>
 </head>
 <body>
-
+   
+    
     <div class="container">
+         <button onclick="goBack()" style="margin-bottom: 20px; padding: 10px 15px; color: black ;cursor: pointer; font-size:medium;">
+        ⬅  Chi tiết sản phẩm
+    </button>
         <div class="product-detail">
         <h1>{{ product.name }}</h1>
         <p><strong>Mô tả:</strong> {{ product.description }}</p>
@@ -37,6 +41,10 @@
             {% endfor %}
         </div>
     </div>
-
+ <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>
