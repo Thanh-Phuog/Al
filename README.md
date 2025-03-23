@@ -12,7 +12,7 @@
 
 ### 1️⃣ Clone repository
 ```bash
-git clone https://github.com/Thanh-Phuog/Al
+git clone --b final https://github.com/Thanh-Phuog/Al
 cd Al
 ```
 
@@ -23,7 +23,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🚀 Chạy ứng dụng 
+## 🚀 Chạy ứng dụng
 
 ### 🔹 Cách 1: Chạy trực tiếp
 ```bash
@@ -50,10 +50,26 @@ Sau khi chạy, ứng dụng sẽ hoạt động tại:
 
 ---
 
-## 📌 Công nghệ sử dụng
+## 📌 Tính năng AI được tích hợp
+
+### Phân loại hình ảnh sản phẩm (TensorFlow)
+- Ứng dụng sử dụng **TensorFlow** để phân loại hình ảnh sản phẩm.
+- Dựa trên kết quả phân loại, hệ thống sẽ tự động gán danh mục phù hợp cho sản phẩm.
+
+### Phân tích đánh giá khách hàng (Hugging Face API)
+- Sử dụng **Hugging Face API** để phân tích nhận xét của khách hàng.
+- Đưa ra đánh giá **tích cực (positive)** hoặc **tiêu cực (negative)** dựa trên nội dung bình luận.
+
+### Hệ thống gợi ý sản phẩm
+- Xây dựng hệ thống **gợi ý sản phẩm** dựa trên tương tác của người dùng.
+- Sản phẩm được đề xuất theo danh mục của sản phẩm mà khách hàng đã chọn.
+
+---
+
+## 💎 Công nghệ sử dụng
 - 🧠 Hugging Face  
-- ⚡ Flask (Python)  
-- 🏗 Tersolow  
+- ⚡ Flask (Python)   
+- 🤖 TensorFlow  
 
 ---
 

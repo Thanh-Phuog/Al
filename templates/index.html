@@ -15,7 +15,7 @@
         textarea { width: 100%; border-radius: 5px; border: 1px solid #ddd; }
         .btn { background-color: #28a745; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
         .btn:hover { background-color: #218838; }
-        img { max-width: 100%; border-radius: 5px; }
+        img {max-width: 250px; max-height: 300px; border-radius: 5px; }
     </style>
 </head>
 <body>
@@ -56,24 +56,42 @@
     </div>
 
     <script>
-        async function analyzeSentiment(productName, index) {
-            let text = document.getElementById("inputText-" + index).value;
-            
-            let response = await fetch('/analyze', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: text, product_name: productName })
-            });
+       async function analyzeSentiment(productName, index) {
+    let text = document.getElementById("inputText-" + index).value.trim();
 
-            let data = await response.json();
-            if (Array.isArray(data) && data.length > 0 && Array.isArray(data[0])) {
-                let predictions = data[0]; 
-                let bestPrediction = predictions.reduce((max, current) => current.score > max.score ? current : max); 
-                document.getElementById("result-" + index).innerText = bestPrediction.label;
-            } else {
-                document.getElementById("result-" + index).innerText = "Lỗi khi phân tích!";
-            }
+    if (!text) {
+        alert("Vui lòng nhập đánh giá!");
+        return;
+    }
+
+    try {
+        let response = await fetch('/analyze', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text, product_name: productName })
+        });
+
+        if (!response.ok) {
+            throw new Error("Lỗi kết nối đến server!");
         }
+
+        let data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0 && Array.isArray(data[0])) {
+            let predictions = data[0];
+            let bestPrediction = predictions.reduce((max, current) => current.score > max.score ? current : max, predictions[0]);
+
+            let resultText = bestPrediction.label === "POSITIVE" ? "Tích cực 😊" : "Tiêu cực 😞";
+            document.getElementById("result-" + index).innerText = resultText;
+        } else {
+            document.getElementById("result-" + index).innerText = "Không có kết quả phân tích!";
+        }
+    } catch (error) {
+        console.error("Lỗi khi phân tích đánh giá:", error);
+        document.getElementById("result-" + index).innerText = "Lỗi khi phân tích!";
+    }
+}
+
     </script>
 
 </body>
