@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Translator</title>
+   </head>
+   <body>
+    <h2>Dịch văn bản TensorFlow</h2>
+    <textarea id="inputText" rows="4" cols="50" placeholder="Nhập văn bản tiếng anh....."></textarea><br>
+    <button onclick="translateText()">Dịch</button>
+    <p>Bản dịch: <span id="result"></span></p>
+
+    <script>
+        async function translateText(){
+            let text = document.getElementById("inputText").value;
+            let response = await fetch('http://127.0.0.1:5000/translate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({text: text})
+            });
+            let data = await response.json();
+            document.getElementById("result").innerText = data[0]?.translation_text || "Không thể dịch";
+        }
+    </script>
+   </body>
+</html>

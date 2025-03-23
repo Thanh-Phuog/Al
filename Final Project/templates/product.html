@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: auto; }
+        .product-detail {margin: auto; background: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        img {max-width: 250px; max-height: 300px; border-radius: 5px; }
+        .related-products{ display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .related-item{ background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+   
+    
+    <div class="container">
+         <button onclick="goBack()" style="margin-bottom: 20px; padding: 10px 15px; color: black ;cursor: pointer; font-size:medium;">
+        ⬅  Chi tiết sản phẩm
+    </button>
+        <div class="product-detail">
+        <h1>{{ product.name }}</h1>
+        <p><strong>Mô tả:</strong> {{ product.description }}</p>
+        <p><strong>Danh mục:</strong> {{ product.predictions }}</p>
+        <img src="{{ url_for('static', filename=product.image_url.replace('static/', '')) }}" alt="Ảnh sản phẩm">
+        
+        </div>  
+        
+        <h2>Sản phẩm liên quan</h2>
+        <div class="related-products">
+            {% for related in related_products %}
+                <div class="related-item">
+                    <a href="/product/{{ related.id }}">  
+                        <h3>{{ related.name }}</h3></a>
+                        <p><strong>Danh mục:</strong>{{ related.predictions }}</p>
+                        <img src="{{ url_for('static', filename=related.image_url.replace('static/', '')) }}" alt="Ảnh sản phẩm">
+                  
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+ <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

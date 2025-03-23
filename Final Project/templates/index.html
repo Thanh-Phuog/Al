@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo Sản Phẩm</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f8f9fa; }
+        h1 { text-align: center; }
+        .container { max-width: 1200px; margin: auto; }
+        .form-container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .product { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px; border: 1px solid #ddd; }
+        textarea { width: 100%; border-radius: 5px; border: 1px solid #ddd; }
+        .btn { background-color: #28a745; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
+        .btn:hover { background-color: #218838; }
+        img {max-width: 250px; max-height: 300px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Tạo Sản Phẩm</h1>
+        <div class="form-container">
+            <form action="/classify" method="post" enctype="multipart/form-data">
+                <label>Tên sản phẩm:</label>
+                <input type="text" placeholder="Nhập tên sản phẩm" name="product_name">
+                
+                <label>Mô tả:</label>
+                <textarea rows="3" placeholder="Nhập mô tả" name="description"></textarea>
+                
+                <input type="file" name="file" required>
+                <button type="submit" class="btn">Lưu sản phẩm</button>
+            </form>
+        </div>
+
+        <h1>Danh sách sản phẩm</h1>
+        <div class="product-grid">
+            {% for product in products %}
+                <div class="product">
+                    <a href="/product/{{ product.id }}">
+                        <h2>{{ product.name }}</h2> 
+                    </a>
+                        <p><strong>Mô tả:</strong> {{ product.description }}</p>
+                        <p><strong>Danh mục:</strong> {{ product.predictions }}</p>
+                        <img src="{{ product.image_url }}" alt="Ảnh sản phẩm">
+                 
+                    <h3>Nhập đánh giá của bạn:</h3>
+                    <textarea id="inputText-{{ loop.index }}" rows="4"></textarea><br>
+                    <button class="btn" onclick="analyzeSentiment('{{ product.name }}', '{{ loop.index }}')">Đánh giá</button>
+                    <p>Đánh giá: <span id="result-{{ loop.index }}"></span></p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+       async function analyzeSentiment(productName, index) {
+    let text = document.getElementById("inputText-" + index).value.trim();
+
+    if (!text) {
+        alert("Vui lòng nhập đánh giá!");
+        return;
+    }
+
+    try {
+        let response = await fetch('/analyze', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text, product_name: productName })
+        });
+
+        if (!response.ok) {
+            throw new Error("Lỗi kết nối đến server!");
+        }
+
+        let data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0 && Array.isArray(data[0])) {
+            let predictions = data[0];
+            let bestPrediction = predictions.reduce((max, current) => current.score > max.score ? current : max, predictions[0]);
+
+            let resultText = bestPrediction.label === "POSITIVE" ? "Tích cực 😊" : "Tiêu cực 😞";
+            document.getElementById("result-" + index).innerText = resultText;
+        } else {
+            document.getElementById("result-" + index).innerText = "Không có kết quả phân tích!";
+        }
+    } catch (error) {
+        console.error("Lỗi khi phân tích đánh giá:", error);
+        document.getElementById("result-" + index).innerText = "Lỗi khi phân tích!";
+    }
+}
+
+    </script>
+
+</body>
+</html>
