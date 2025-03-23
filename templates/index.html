@@ -39,12 +39,13 @@
         <div class="product-grid">
             {% for product in products %}
                 <div class="product">
-                    <a href="/product/{{ product.predictions }}">
-                        <h2>{{ product.name }}</h2>
+                    <a href="/product/{{ product.id }}">
+                        <h2>{{ product.name }}</h2> 
+                    </a>
                         <p><strong>Mô tả:</strong> {{ product.description }}</p>
                         <p><strong>Danh mục:</strong> {{ product.predictions }}</p>
                         <img src="{{ product.image_url }}" alt="Ảnh sản phẩm">
-                    </a>
+                 
                     <h3>Nhập đánh giá của bạn:</h3>
                     <textarea id="inputText-{{ loop.index }}" rows="4"></textarea><br>
                     <button class="btn" onclick="analyzeSentiment('{{ product.name }}', '{{ loop.index }}')">Đánh giá</button>

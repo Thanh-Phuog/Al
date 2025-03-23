@@ -3,31 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ product.name }}</title>
+    <title>Chi tiết sản phẩm</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; background-color: #f8f9fa; }
         .container { max-width: 1200px; margin: auto; }
-        .product-detail, .related-products { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .product-detail {margin: auto; background: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         img { max-width: 100%; border-radius: 5px; }
+        .related-products{ display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .related-item{ background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>{{ product.name }}</h1>
         <div class="product-detail">
-            <img src="{{ url_for('static', filename=product.image_url.replace('static/', '')) }}" alt="Ảnh sản phẩm">
-            <p><strong>Mô tả:</strong> {{ product.description }}</p>
-            <p><strong>Danh mục:</strong> {{ product.predictions }}</p>
-        </div>
-
+        <h1>{{ product.name }}</h1>
+        <p><strong>Mô tả:</strong> {{ product.description }}</p>
+        <p><strong>Danh mục:</strong> {{ product.predictions }}</p>
+        <img src="{{ url_for('static', filename=product.image_url.replace('static/', '')) }}" alt="Ảnh sản phẩm">
+        </div>  
+        
         <h2>Sản phẩm liên quan</h2>
         <div class="related-products">
             {% for related in related_products %}
-                <div>
-                    <h3><a href="/product/{{ related.predictions }}">{{ related.name }}</a></h3>
-                    <img src="{{ url_for('static', filename=product.image_url.replace('static/', '')) }}" alt="Ảnh sản phẩm">
-
+                <div class="related-item">
+                    <a href="/product/{{ related.id }}">  
+                        <h3>{{ related.name }}</h3></a>
+                        <p><strong>Danh mục:</strong>{{ related.predictions }}</p>
+                        <img src="{{ url_for('static', filename=related.image_url.replace('static/', '')) }}" alt="Ảnh sản phẩm">
+                  
                 </div>
             {% endfor %}
         </div>
